@@ -1,0 +1,26 @@
+name: build-simple-docker
+
+on:
+  push:
+    branches:
+        - test
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout - added to push and trigger
+
+jobs:
+  build_and_push_image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: bindings/extractous-python/Dockerfile
+          tags: test:latest
+          push: false
+          platform: linux/amd64
