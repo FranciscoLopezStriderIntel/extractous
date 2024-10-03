@@ -3,7 +3,7 @@ name: build-simple-docker
 on:
   push:
     branches:
-        - test
+        - feature/test
 
 permissions:
   id-token: write   # This is required for requesting the JWT
