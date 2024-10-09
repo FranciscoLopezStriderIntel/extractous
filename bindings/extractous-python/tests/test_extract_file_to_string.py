@@ -18,17 +18,21 @@ TEST_CASES = [
 ]
 
 @pytest.mark.parametrize("file_name, target_dist", TEST_CASES)
-def test_extract_file_to_string(file_name, target_dist):
+def test_extract_file_data(file_name, target_dist):
     """Test the extraction and comparison of various file types."""
     original_filepath = f"../../test_files/documents/{file_name}"
     expected_result_filepath = f"../../test_files/expected_result/{file_name}.txt"
     extractor = Extractor()
-    result = extractor.extract_file_to_string(original_filepath)
+    ext_dict = extractor.extract_file_to_dict(original_filepath)
+    content = ext_dict.get("content")
+    metadata = ext_dict.get("metadata")
     with open(expected_result_filepath, "r") as file:
         expected = file.read()
     
-    assert cosine_similarity(result, expected) > target_dist, \
+    assert cosine_similarity(content, expected) > target_dist, \
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
+
+    assert len(metadata) > 0
 
 def cosine_similarity(text1, text2):
     """Calculate the cosine similarity between two texts."""

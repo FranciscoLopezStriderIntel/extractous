@@ -62,7 +62,7 @@ public class TikaNativeMain {
         String[] result = new String[metadata.size()];
         int i = 0;
         for (String name : metadata.names()) {
-            result[i] = name + ": " + metadata.get(name);
+            result[i] = name + ":" + metadata.get(name);
             i++;
         }
         return result;

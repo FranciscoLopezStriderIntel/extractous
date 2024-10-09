@@ -78,6 +78,20 @@ result = extractor.extract_file_to_string("README.md")
 print(result)
 ```
 
+* Extract a file content to a dict (content, metadata):
+```python
+from extractous import Extractor
+
+# Create a new extractor
+extractor = Extractor()
+extractor.set_extract_string_max_length(1000)
+
+# Extract text from a file
+result = extractor.extract_file_to_dict("README.md")
+print(result['content'])
+print(result['metadata'])
+```
+
 #### Rust
 * Extract a file content to a string:
 ```rust
