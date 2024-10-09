@@ -20,13 +20,13 @@ fn test_extract_file_to_string(file_name: &str, target_dist: f64) {
     let extractor = Extractor::new().set_extract_string_max_length(1000000);
     // extract file with extractor
     let extracted = extractor
-        .extract_file_to_string(&format!("../test_files/documents/{}", file_name))
+        .extract_file_to_struct(&format!("../test_files/documents/{}", file_name))
         .unwrap();
     // read expected string
     let expected =
         fs::read_to_string(format!("../test_files/expected_result/{}.txt", file_name)).unwrap();
 
-    let dist = cosine(&expected, &extracted);
+    let dist = cosine(&expected, &extracted.content);
     assert!(
         dist > target_dist,
         "Cosine similarity is less than {} for file: {}, dist: {}",
@@ -34,5 +34,11 @@ fn test_extract_file_to_string(file_name: &str, target_dist: f64) {
         file_name,
         dist
     );
+    assert!(
+        extracted.metadata.len() > 0,
+        "Metadata should contain at least one entry"
+    );
     println!("{}: {}", file_name, dist);
+    //println!("{}", extracted.content);
+    //println!("{:?}", extracted.metadata);
 }
