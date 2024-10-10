@@ -22,17 +22,23 @@ def test_extract_file_data(file_name, target_dist):
     """Test the extraction and comparison of various file types."""
     original_filepath = f"../../test_files/documents/{file_name}"
     expected_result_filepath = f"../../test_files/expected_result/{file_name}.txt"
+    expected_metadata_result_filepath = f"../../test_files/expected_result/{file_name}.metadata.txt"
     extractor = Extractor()
     ext_dict = extractor.extract_file_to_dict(original_filepath)
     content = ext_dict.get("content")
     metadata = ext_dict.get("metadata")
+    metadata.sort()
     with open(expected_result_filepath, "r") as file:
         expected = file.read()
-    
+    with open(expected_metadata_result_filepath, 'r') as file:
+            expected_metadata = [line.strip() for line in file.readlines()]
+
     assert cosine_similarity(content, expected) > target_dist, \
         f"Cosine similarity is less than {target_dist} for file: {file_name}"
 
     assert len(metadata) > 0
+    assert metadata == expected_metadata
+
 
 def cosine_similarity(text1, text2):
     """Calculate the cosine similarity between two texts."""
@@ -44,3 +50,7 @@ def cosine_similarity(text1, text2):
     # Calculate cosine similarity between the two vectors
     cos_sim = cosine_sim(vectors)
     return cos_sim[0][1]
+
+def read_metadata_array(file_path):
+
+    return lines
