@@ -47,7 +47,13 @@
 },
 {
   "name":"ai.yobix.StringResult",
-  "methods":[{"name":"getContent","parameterTypes":[] }, {"name":"getErrorMessage","parameterTypes":[] }, {"name":"getStatus","parameterTypes":[] }, {"name":"isError","parameterTypes":[] }]
+  "methods":[
+    {"name":"getContent","parameterTypes":[] },
+    {"name":"getErrorMessage","parameterTypes":[] },
+    {"name":"getStatus","parameterTypes":[] },
+    {"name":"isError","parameterTypes":[] },
+    {"name":"getMetadata", "parameterTypes": [], "returnType": "[Ljava.lang.String;"}
+  ]
 },
 {
   "name":"ai.yobix.TikaNativeMain",
